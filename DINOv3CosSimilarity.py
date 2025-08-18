@@ -399,7 +399,7 @@ def main():
     model = AutoModel.from_pretrained(args.model).to(device)
     model.eval()
 
-    ps = args.patch_size if args.patch_size and args.patch_size > 0 else getattr(getattr(model, "config", object()), "patch_size", 16)
+    ps = args.patch_size if args.patch_size and args.patch_size > 0 else get_patch_size_from_model(model, 16)
     print(f"[info] Using patch size: {ps}")
 
     # Routing logic:
