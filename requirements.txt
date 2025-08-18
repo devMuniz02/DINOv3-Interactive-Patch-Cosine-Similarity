@@ -1,8 +1,10 @@
-torch==1.13.0
-torchvision==0.14.0
-transformers==4.21.1
-matplotlib==3.6.0
-ipywidgets==7.6.5
-ipympl==0.9.2
-Pillow
-numpy
+torch
+torchvision
+matplotlib
+numpy==1.26.4
+ipykernel
+ipywidgets
+ipympl
+
+# Install Transformers directly from GitHub source
+transformers @ git+https://github.com/huggingface/transformers.git
