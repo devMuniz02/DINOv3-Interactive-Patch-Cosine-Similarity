@@ -402,6 +402,21 @@ def main():
     model = AutoModel.from_pretrained(args.model).to(device)
     model.eval()
 
+    def get_patch_size_from_model(model, default=16):
+        # Try to get patch size from model config if available
+        if hasattr(model, "config") and hasattr(model.config, "patch_size"):
+            ps = model.config.patch_size
+            if isinstance(ps, (tuple, list)):
+                return ps[0]
+            return ps
+        # Try to get from model attributes
+        if hasattr(model, "patch_size"):
+            ps = model.patch_size
+            if isinstance(ps, (tuple, list)):
+                return ps[0]
+            return ps
+        return default
+
     ps = args.patch_size if args.patch_size and args.patch_size > 0 else get_patch_size_from_model(model, 16)
     print(f"[info] Using patch size: {ps}")
 
