@@ -2,7 +2,7 @@
 
 ## Demo
 
-![Interactive Patch Similarity Demo](assets/Interactive_test_video.gif)
+![Interactive Patch Similarity Demo](assets/Test_Interactive_video.gif)
 
 > **Note:** This README and repository are for educational purposes. The creation of this repo was inspired by the DINOv3 paper to help visualize and understand the output of the model.
 
