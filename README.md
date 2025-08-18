@@ -1,5 +1,9 @@
 # DINOv3 Patch Similarity Viewer
 
+## Demo
+
+![Interactive Patch Similarity Demo](assets/Interactive_test_video.gif)
+
 > **Note:** This README and repository are for educational purposes. The creation of this repo was inspired by the DINOv3 paper to help visualize and understand the output of the model.
 
 ## Purpose
@@ -94,4 +98,4 @@ This project is licensed under the MIT License. See the `LICENSE` file for detai
 
 ## Acknowledgments
 
-This project utilizes the DINOv3 model from Hugging Face's Transformers library, along with PyTorch, Matplotlib, and Pillow for image processing
+This project utilizes the DINOv3 model from Hugging Face's Transformers library, along with PyTorch, Matplotlib, and Pillow
