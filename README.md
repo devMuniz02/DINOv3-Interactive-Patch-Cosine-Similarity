@@ -1,8 +1,12 @@
 # DINOv3 Patch Similarity Viewer
 
-## Demo
+## Demo Single Image
 
 ![Interactive Patch Similarity Demo](assets/Test_Interactive_video.gif)
+
+## Demo 2 Images
+
+![Multiple Interactive Patch Similarity Demo](assets/Multiple_Test_Interactive_video.gif)
 
 > **Note:** This README and repository are for educational purposes. The creation of this repo was inspired by the DINOv3 paper to help visualize and understand the output of the model.
 
@@ -23,8 +27,10 @@ You can request access via the [Meta Research page](https://ai.meta.com/resource
 ## Features
 
 - **Interactive Visualization:** Click on image patches or use arrow keys to explore patch similarity heatmaps.
+- **Single or Two-Image Mode:** If one image is specified, shows self-similarity. If two images are specified, shows both self-similarity and cross-image similarity overlays interactively.
 - **Image Preprocessing:** Loads and pads images without resizing, preserving the original aspect ratio.
 - **Cosine Similarity Calculation:** Computes and visualizes cosine similarity between image patches.
+- **Robust Fallback:** If an image URL fails to load, a default image is used.
 
 ## Installation
 
@@ -61,12 +67,25 @@ Run the interactive viewer with the default COCO image:
 python DINOv3CosSimilarity.py
 ```
 
-Or specify your own image (local path or URL):
+#### Single Image Mode
+
+Specify your own image (local path or URL):
 
 ```bash
 python DINOv3CosSimilarity.py --image path/to/your/image.jpg
 python DINOv3CosSimilarity.py --image https://yourdomain.com/image.png
 ```
+
+#### Two Image Mode
+
+Specify two images (local paths or URLs):
+
+```bash
+python DINOv3CosSimilarity.py --image1 path/to/image1.jpg --image2 path/to/image2.jpg
+python DINOv3CosSimilarity.py --image1 https://yourdomain.com/image1.png --image2 https://yourdomain.com/image2.png
+```
+
+#### Model Selection
 
 Specify the model with `--model` (default is vits16):
 
@@ -74,23 +93,32 @@ Specify the model with `--model` (default is vits16):
 python DINOv3CosSimilarity.py --model facebook/dinov3-vitb16-pretrain-lvd1689m
 ```
 
-Or use the default:
+#### Other Options
 
-```bash
-python DINOv3CosSimilarity.py
-```
+- `--show_grid` : Draw patch grid
+- `--annotate_indices` : Write patch indices on cells
+- `--overlay_alpha <float>` : Set heatmap alpha (default 0.55)
+- `--patch_size <int>` : Override patch size (default: model's patch size)
 
-**Controls:**  
-- Mouse click to select a patch  
-- Arrow keys to move selection  
+#### Controls
+
+- Mouse click to select a patch
+- Arrow keys to move selection
+- '1', '2', or 't' to switch active image (in two-image mode)
 - 'q' to quit
 
 ### Jupyter Notebook
 
 1. Open `PatchCosSimilarity.ipynb` in Jupyter Notebook.
 2. Run the cells to load an image and visualize patch similarities.
-3. Use the notebook interface to interactively select and analyze patches.
-4. Set the `model_id` variable to any of the models listed above (see commented lines at the top of the notebook).
+3. Set `url1` for single-image mode, or both `url1` and `url2` for two-image mode.
+4. If an image fails to load, a default image will be used automatically.
+5. Set the `model_id` variable to any of the models listed above (see commented lines at the top of the notebook).
+
+**Notebook Controls:**  
+- Mouse click to select a patch  
+- Arrow keys to move selection  
+- '1', '2', or 't' to switch active image (in two-image mode)
 
 ## License
 
