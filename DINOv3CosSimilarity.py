@@ -304,7 +304,7 @@ def run_two_images(img1_path, img2_path, model, device, ps, show_grid, annotate_
         tgt.best_rect.set_visible(True)
 
         # Hide best on source (self best is the selected cell)
-        S[1 - tgt_i].best_rect.set_visible(False)
+        src.best_rect.set_visible(False)
 
         set_titles(src_i, (cos_map_self.min(), cos_map_self.max()),
                           (cos_map_cross.min(), cos_map_cross.max()))
