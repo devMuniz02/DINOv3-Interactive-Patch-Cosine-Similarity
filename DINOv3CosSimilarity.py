@@ -1,5 +1,6 @@
 # filepath: DINOv3-PatchSimilarity/DINOv3CosSimilarity2Images.py
-# one_or_two_image_patch_explorer.py
+# filepath: DINOv3-PatchSimilarity/DINOv3CosSimilarity.py
+# Interactive DINOv3 patch similarity viewer for one or two images
 # Interactive DINOv3 patch similarity viewer (NO AutoImageProcessor, NO resize)
 # - Single-image mode (0 or 1 image given): original behavior
 # - Two-image mode (2 images given): when you click or move on one image,
