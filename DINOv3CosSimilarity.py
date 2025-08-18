@@ -65,7 +65,10 @@ def upsample_nearest(arr, H, W, ps):
     if arr.ndim == 2:
         return arr.repeat(ps, 0).repeat(ps, 1)
     elif arr.ndim == 3:
-        return arr.repeat(ps, 0).repeat(ps, 1)
+        # arr shape: (rows, cols, channels)
+        rows, cols, channels = arr.shape
+        arr_up = arr.repeat(ps, 0).repeat(ps, 1)
+        return arr_up.reshape(rows * ps, cols * ps, channels)
     raise ValueError("upsample_nearest expects (rows,cols) or (rows,cols,channels)")
 
 def draw_grid(ax, rows, cols, ps):
