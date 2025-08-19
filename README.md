@@ -1,12 +1,6 @@
 # DINOv3 Patch Similarity Viewer
 
-## Demo Single Image
-
-![Interactive Patch Similarity Demo](assets/Test_Interactive_video.gif)
-
-## Demo 2 Images
-
-![Multiple Interactive Patch Similarity Demo](assets/Multiple_Interactive_test_video.gif)
+![Gradio Test app](assets/GradioAppTest.gif)
 
 > **Note:** This README and repository are for educational purposes. The creation of this repo was inspired by the DINOv3 paper to help visualize and understand the output of the model.
 
@@ -44,20 +38,50 @@ pip install -r requirements.txt
 
 You can choose from several DINOv3 models available on Hugging Face (click to view each model card):
 
-- [facebook/dinov3-vit7b16-pretrain-lvd1689m](https://huggingface.co/facebook/dinov3-vit7b16-pretrain-lvd1689m)
-- [facebook/dinov3-vits16-pretrain-lvd1689m](https://huggingface.co/facebook/dinov3-vits16-pretrain-lvd1689m)
-- [facebook/dinov3-convnext-small-pretrain-lvd1689m](https://huggingface.co/facebook/dinov3-convnext-small-pretrain-lvd1689m)
-- [facebook/dinov3-vitb16-pretrain-lvd1689m](https://huggingface.co/facebook/dinov3-vitb16-pretrain-lvd1689m)
-- [facebook/dinov3-convnext-base-pretrain-lvd1689m](https://huggingface.co/facebook/dinov3-convnext-base-pretrain-lvd1689m)
-- [facebook/dinov3-vits16plus-pretrain-lvd1689m](https://huggingface.co/facebook/dinov3-vits16plus-pretrain-lvd1689m)
-- [facebook/dinov3-convnext-tiny-pretrain-lvd1689m](https://huggingface.co/facebook/dinov3-convnext-tiny-pretrain-lvd1689m)
-- [facebook/dinov3-vitl16-pretrain-sat493m](https://huggingface.co/facebook/dinov3-vitl16-pretrain-sat493m)
-- [facebook/dinov3-vitl16-pretrain-lvd1689m](https://huggingface.co/facebook/dinov3-vitl16-pretrain-lvd1689m)
-- [facebook/dinov3-vith16plus-pretrain-lvd1689m](https://huggingface.co/facebook/dinov3-vith16plus-pretrain-lvd1689m)
-- [facebook/dinov3-convnext-large-pretrain-lvd1689m](https://huggingface.co/facebook/dinov3-convnext-large-pretrain-lvd1689m)
-- [facebook/dinov3-vit7b16-pretrain-sat493m](https://huggingface.co/facebook/dinov3-vit7b16-pretrain-sat493m)
+LVD-1689M Dataset (Web data)
+- ViT
+    - [facebook/dinov3-vit7b16-pretrain-lvd1689m](https://huggingface.co/facebook/dinov3-vit7b16-pretrain-lvd1689m)
+    - [facebook/dinov3-vits16-pretrain-lvd1689m](https://huggingface.co/facebook/dinov3-vits16-pretrain-lvd1689m)
+    - [facebook/dinov3-vits16plus-pretrain-lvd1689m](https://huggingface.co/facebook/dinov3-vits16plus-pretrain-lvd1689m)
+    - [facebook/dinov3-vitb16-pretrain-lvd1689m](https://huggingface.co/facebook/dinov3-vitb16-pretrain-lvd1689m)
+    - [facebook/dinov3-vitl16-pretrain-lvd1689m](https://huggingface.co/facebook/dinov3-vitl16-pretrain-lvd1689m)
+    - [facebook/dinov3-vith16plus-pretrain-lvd1689m](https://huggingface.co/facebook/dinov3-vith16plus-pretrain-lvd1689m)
+
+- ConvNeXt
+    - [facebook/dinov3-convnext-tiny-pretrain-lvd1689m](https://huggingface.co/facebook/dinov3-convnext-tiny-pretrain-lvd1689m)
+    - [facebook/dinov3-convnext-small-pretrain-lvd1689m](https://huggingface.co/facebook/dinov3-convnext-small-pretrain-lvd1689m)
+    - [facebook/dinov3-convnext-base-pretrain-lvd1689m](https://huggingface.co/facebook/dinov3-convnext-base-pretrain-lvd1689m)
+    - [facebook/dinov3-convnext-large-pretrain-lvd1689m](https://huggingface.co/facebook/dinov3-convnext-large-pretrain-lvd1689m)
+
+SAT-493M Dataset (Satellite data)
+- ViT
+    - [facebook/dinov3-vitl16-pretrain-sat493m](https://huggingface.co/facebook/dinov3-vitl16-pretrain-sat493m)
+    - [facebook/dinov3-vit7b16-pretrain-sat493m](https://huggingface.co/facebook/dinov3-vit7b16-pretrain-sat493m)
 
 ## Usage
+
+### Gradio app
+
+Run the Gradio app:
+
+```bash
+python app.py
+```
+
+After runnig the app, go to [http://localhost:7860/](http://localhost:7860/) to see the app running.
+
+Then: 
+- Choose Dataset and model name
+- For Single image similarity:
+    - Choose only one file or URL
+- For 2 image similarity:
+    - Choose images from file and/or URL
+- Click button "Initialize / Update "
+- Select the desired patch from the image
+- Watch the results
+
+**Note:** 
+*Overlay alpha* is the intensity of the overlay of patches on top of image
 
 ### Python Script
 
@@ -106,6 +130,14 @@ python DINOv3CosSimilarity.py --model facebook/dinov3-vitb16-pretrain-lvd1689m
 - Arrow keys to move selection
 - '1', '2', or 't' to switch active image (in two-image mode)
 - 'q' to quit
+
+## Demo Single Image
+
+![Interactive Patch Similarity Demo](assets/Test_Interactive_video.gif)
+
+## Demo 2 Images
+
+![Multiple Interactive Patch Similarity Demo](assets/Multiple_Interactive_test_video.gif)
 
 ### Jupyter Notebook
 
