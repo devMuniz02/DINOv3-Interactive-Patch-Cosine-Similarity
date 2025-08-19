@@ -1,4 +1,5 @@
 # DINOv3 Patch Similarity Viewer
+[Hugging Face Space](https://huggingface.co/spaces/manu02/DINOv3-Interactive-Patch-Cosine-Similarity)
 
 ![Gradio Test app](assets/GradioAppTest.gif)
 
@@ -81,6 +82,7 @@ Then:
 - Watch the results
 
 **Note:** 
+
 *Overlay alpha* is the intensity of the overlay of patches on top of image
 
 ### Python Script
