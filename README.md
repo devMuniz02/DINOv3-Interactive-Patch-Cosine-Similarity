@@ -1,5 +1,5 @@
 # DINOv3 Patch Similarity Viewer
-[Hugging Face Space](https://huggingface.co/spaces/manu02/DINOv3-Interactive-Patch-Cosine-Similarity)
+[TRY IT NOW on Hugging Face Space](https://huggingface.co/spaces/manu02/DINOv3-Interactive-Patch-Cosine-Similarity)
 
 ![Gradio Test app](assets/GradioAppTest.gif)
 
