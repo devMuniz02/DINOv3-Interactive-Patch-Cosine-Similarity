@@ -8,6 +8,7 @@
 # - Dataset selector (LVD-1689M / SAT-493M); model dropdown shows only the short name between "dinov3-" and "-pretrain".
 # - Sample URL dropdowns switch between LVD (COCO/Picsum) and SAT (satellite imagery) and auto-fill / clear uploads.
 
+import os
 import io
 import math
 import urllib.request
@@ -21,6 +22,8 @@ import torch
 from torchvision import transforms
 from transformers import AutoModel
 from matplotlib import colormaps as cm
+
+token = os.environ.get("HF_TOKEN")
 
 # ---------- Provided model IDs (ground truth list) ----------
 MODEL_ID_LIST = [
@@ -79,6 +82,18 @@ DEFAULT_DATASET_LABEL = "LVD-1689M"  # initial radio
 DEFAULT_OVERLAY_ALPHA = 0.55
 DEFAULT_SHOW_GRID = True
 
+# ---------- Normalization presets ----------
+NORMALIZE_STATS = {
+    "lvd1689m": {
+        "mean": [0.485, 0.456, 0.406],
+        "std":  [0.229, 0.224, 0.225],
+    },
+    "sat493m": {
+        "mean": [0.430, 0.411, 0.296],
+        "std":  [0.213, 0.156, 0.143],
+    },
+}
+
 # ---------- Sample image URLs (dependent on dataset) ----------
 SAMPLE_URL_CHOICES: Dict[str, List[Tuple[str, str]]] = {
     # LVD: current ones
@@ -94,9 +109,21 @@ SAMPLE_URL_CHOICES: Dict[str, List[Tuple[str, str]]] = {
     # SAT: satellite imagery examples
     "sat493m": [
         ("– choose a satellite sample –", ""),
-        ("Blue Marble (NASA)", "https://upload.wikimedia.org/wikipedia/commons/9/9d/The_Blue_Marble_%28remastered%29.jpg"),
-        ("GOES-16 Hurricane Florence (2018)", "https://upload.wikimedia.org/wikipedia/commons/5/5e/Hurricane_Florence_GOES-16_2018-09-12_1510Z.jpg"),
-        ("NASA Earth Observatory: Philippines", "https://eoimages.gsfc.nasa.gov/images/imagerecords/151000/151639/philippines_tmo_2020118_lrg.jpg"),
+        ("Los Angeles — Downtown", "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-13162953.111392,4035684.000887,-13162647.363277,4035989.748999&bboxSR=102100&imageSR=102100&size=1024,1024&format=jpg&f=image"),
+        ("Chicago — The Loop", "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-9755772.575579,5142721.481539,-9755466.827467,5143027.229656&bboxSR=102100&imageSR=102100&size=1024,1024&format=jpg&f=image"),
+        ("San Francisco — FiDi", "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-13625779.317660,4549493.705020,-13625473.569543,4549799.453132&bboxSR=102100&imageSR=102100&size=1024,1024&format=jpg&f=image"),
+        ("Seattle — Downtown", "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-13618135.614829,6041468.060117,-13617829.866717,6041773.808232&bboxSR=102100&imageSR=102100&size=1024,1024&format=jpg&f=image"),
+        ("Houston — Downtown", "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-10616682.825155,3472648.850537,-10616377.077043,3472954.598652&bboxSR=102100&imageSR=102100&size=1024,1024&format=jpg&f=image"),
+        ("Boston — Downtown", "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-7910429.838718,5214954.473271,-7910124.090606,5215260.221383&bboxSR=102100&imageSR=102100&size=1024,1024&format=jpg&f=image"),
+        ("Miami — Brickell", "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-8927271.625996,2970992.633903,-8926965.877884,2971298.382015&bboxSR=102100&imageSR=102100&size=1024,1024&format=jpg&f=image"),
+        ("Washington, DC — White House area", "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-8575814.169943,4706877.546259,-8575508.421826,4707183.294371&bboxSR=102100&imageSR=102100&size=1024,1024&format=jpg&f=image"),
+        ("Philadelphia — City Hall", "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-8367523.267865,4858910.795516,-8367217.519750,4859216.543633&bboxSR=102100&imageSR=102100&size=1024,1024&format=jpg&f=image"),
+        ("Mexico — Monterrey Macroplaza", "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-11167335.176921,2957692.590981,-11167029.428809,2957998.339093&bboxSR=102100&imageSR=102100&size=1024,1024&format=jpg&f=image"),
+        ("Mexico — Guadalajara Centro", "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-11504728.219772,2353228.571302,-11504422.471660,2353534.319414&bboxSR=102100&imageSR=102100&size=1024,1024&format=jpg&f=image"),
+        ("Mexico — CDMX Zócalo", "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-11035634.177186,2205781.543740,-11035328.429074,2206087.291852&bboxSR=102100&imageSR=102100&size=1024,1024&format=jpg&f=image"),
+        ("Texas — Dallas Downtown", "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-10775518.969934,3865535.175922,-10775213.221817,3865840.924038&bboxSR=102100&imageSR=102100&size=1024,1024&format=jpg&f=image"),
+        ("Texas — Austin Capitol", "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-10880543.446795,3538766.880005,-10880237.698683,3539072.628117&bboxSR=102100&imageSR=102100&size=1024,1024&format=jpg&f=image"),
+        ("Texas — San Antonio River Walk", "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-10964394.866824,3429614.803614,-10964089.118712,3429920.551726&bboxSR=102100&imageSR=102100&size=1024,1024&format=jpg&f=image"),
     ],
 }
 
@@ -132,16 +159,21 @@ def pad_to_multiple(pil_img: Image.Image, multiple: int = 16) -> Tuple[Image.Ima
     canvas.paste(pil_img, (0, 0))
     return canvas, (0, 0, W_pad - W, H_pad - H)
 
-def preprocess_no_resize(pil_img: Image.Image, multiple: int = 16):
+def preprocess_no_resize(pil_img: Image.Image, multiple: int = 16, dataset_key: str = "lvd1689m"):
     img_padded, pad_box = pad_to_multiple(pil_img, multiple=multiple)
+
+    # Pick stats based on dataset (default to LVD if unknown)
+    stats = NORMALIZE_STATS.get(dataset_key, NORMALIZE_STATS["lvd1689m"])
+    mean, std = stats["mean"], stats["std"]
+
     transform = transforms.Compose([
         transforms.ToTensor(),
-        transforms.Normalize(mean=[0.485, 0.456, 0.406],
-                             std =[0.229, 0.224, 0.225]),
+        transforms.Normalize(mean=mean, std=std),
     ])
     pixel_tensor = transform(img_padded).unsqueeze(0)  # (1,3,H,W)
     disp_np = np.array(img_padded, dtype=np.uint8)
     return {"pixel_values": pixel_tensor}, disp_np, pad_box
+
 
 def upsample_nearest(arr: np.ndarray, H: int, W: int, ps: int) -> np.ndarray:
     if arr.ndim == 2:
@@ -195,10 +227,11 @@ def infer_patch_size(model, default: int = 16) -> int:
 
 # ---------- Per-image state ----------
 class PatchImageState:
-    def __init__(self, pil_img: Image.Image, model, device_str: str, ps: int):
+    def __init__(self, pil_img: Image.Image, model, device_str: str, ps: int, dataset_key: str):
         self.pil = pil_img
         self.ps = ps
-        inputs, disp_np, _ = preprocess_no_resize(pil_img, multiple=ps)
+        self.dataset_key = dataset_key
+        inputs, disp_np, _ = preprocess_no_resize(pil_img, multiple=ps, dataset_key=dataset_key)
         self.disp = disp_np
         pv = inputs["pixel_values"].to(device_str)  # (1,3,H,W)
         _, _, H, W = pv.shape
@@ -341,9 +374,12 @@ def init_states(
     device_str = "cuda" if torch.cuda.is_available() else "cpu"
     model = load_model_cached(full_model_id, device_str)
     ps = infer_patch_size(model, 16)
+    
+    # Get dataset_key ("lvd1689m" or "sat493m") from the radio label
+    dataset_key = dataset_label_to_key(dataset_label)
 
-    left_state = PatchImageState(left_img, model, device_str, ps) if left_img is not None else None
-    right_state = PatchImageState(right_img, model, device_str, ps) if right_img is not None else None
+    left_state = PatchImageState(left_img, model, device_str, ps, dataset_key) if left_img is not None else None
+    right_state = PatchImageState(right_img, model, device_str, ps, dataset_key) if right_img is not None else None
 
     active_side = 0 if left_state is not None else 1
 
