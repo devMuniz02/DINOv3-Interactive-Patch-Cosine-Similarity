@@ -269,7 +269,7 @@ def render_with_cosmap(
     if cos_map is None:
         disp = np.full((rows, cols), 0.5, dtype=np.float32)
     else:
-        vmin, vmax = float(cos_map.min()), float(cos_map.max())
+        vmin, vmax = 0.0, 1.0
         rng = vmax - vmin if vmax > vmin else 1e-8
         disp = (cos_map - vmin) / rng
 
