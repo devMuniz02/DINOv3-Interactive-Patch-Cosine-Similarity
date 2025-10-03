@@ -141,6 +141,34 @@ python DINOv3CosSimilarity.py --model facebook/dinov3-vitb16-pretrain-lvd1689m
 
 ![Multiple Interactive Patch Similarity Demo](assets/Multiple_Interactive_test_video.gif)
 
+### Real-time Camera Similarity
+
+Experience DINOv3 patch similarity in real-time with your camera:
+
+```bash
+python camera_similarity.py
+```
+
+This interactive camera application displays a 3x2 grid showing:
+- **Original**: Live camera feed
+- **Original + Cosine Overlay**: Camera feed with similarity heatmap overlay
+- **Cosine Overlay Only**: Pure similarity heatmap visualization
+- **Last Selection**: Shows the frame where you made your last patch selection with grid lines
+- **PCA Visualization**: 3-component PCA visualization of patch features
+- **Empty**: Reserved space for future features
+
+**Camera Controls:**
+- Click on any patch in the camera feed to select it as reference
+- The similarity heatmap will update in real-time showing patches similar to your selection
+- Press ESC to quit
+
+**Demo Video:**
+![Camera Similarity Demo](assets/DINOv3CameraTest.mp4)
+
+**Requirements:**
+- Camera/webcam connected to your system
+- OpenCV for camera capture and display
+
 ### Jupyter Notebook
 
 1. Open `PatchCosSimilarity.ipynb` in Jupyter Notebook.
