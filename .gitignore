@@ -74,9 +74,6 @@ Thumbs.db
 ehthumbs.db
 Desktop.ini
 
-# Large video files (too big for GitHub)
-assets/DINOv3CameraTest.mp4
-
 # Specific files to exclude
 max_similarity.py
 mean_cls_comparison.py

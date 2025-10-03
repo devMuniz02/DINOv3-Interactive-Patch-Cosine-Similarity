@@ -162,7 +162,8 @@ This interactive camera application displays a 3x2 grid showing:
 - The similarity heatmap will update in real-time showing patches similar to your selection
 - Press ESC to quit
 
-**Note:** Demo video available locally in `assets/DINOv3CameraTest.mp4` (not included in repository due to file size)
+**Demo Video:**
+![Camera Similarity Demo](assets/DINOv3CameraTest.mp4)
 
 **Requirements:**
 - Camera/webcam connected to your system
