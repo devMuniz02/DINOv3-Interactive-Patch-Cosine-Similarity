@@ -1,0 +1,10 @@
+torch
+torchvision
+matplotlib
+numpy==1.26.4
+ipykernel
+ipywidgets
+ipympl
+
+# Install Transformers directly from GitHub source
+transformers @ git+https://github.com/huggingface/transformers.git
