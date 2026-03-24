@@ -1,23 +1,56 @@
-# DINOv3 Patch Similarity Viewer
-[TRY IT NOW on Hugging Face Space](https://huggingface.co/spaces/manu02/DINOv3-Interactive-Patch-Cosine-Similarity)
+[![ArXiv](https://img.shields.io/badge/ArXiv-2512.16841-B31B1B?logo=arxiv&logoColor=white)](https://arxiv.org/abs/2512.16841)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-devmuniz-0A66C2?logo=linkedin&logoColor=white)](https://www.linkedin.com/in/devmuniz)
+[![GitHub Profile](https://img.shields.io/badge/GitHub-devMuniz02-181717?logo=github&logoColor=white)](https://github.com/devMuniz02)
+[![Portfolio](https://img.shields.io/badge/Portfolio-devmuniz02.github.io-0F172A?logo=googlechrome&logoColor=white)](https://devmuniz02.github.io/)
+[![Hugging Face](https://img.shields.io/badge/Hugging%20Face-manu02-FFD21E?logoColor=black)](https://huggingface.co/manu02)
 
-![Gradio Test app](assets/GradioAppTest.gif)
+# DINOv3 Patch Similarity Viewer
 
 > **Note:** This README and repository are for educational purposes. The creation of this repo was inspired by the DINOv3 paper to help visualize and understand the output of the model.
 
-## Purpose
-
 This repository provides interactive tools to visualize and explore patch-wise similarity in images using the DINOv3 vision transformer model. It is designed for researchers, students, and practitioners interested in understanding how self-supervised vision transformers perceive and relate different regions of an image.
 
-## About DINOv3
+## Overview
 
-- **Paper:** [DINOv3: Self-supervised Vision Transformers with Enormous Teacher Models](https://arxiv.org/abs/2508.10104)
-- **Meta Research Page:** [Meta DINOv3 Publication](https://ai.meta.com/dinov3/)
-- **Official GitHub:** [facebookresearch/dinov3](https://github.com/facebookresearch/dinov3)
+Interactive tool to visualize patch-wise similarity in images using DINOv3 models. Select any Hugging Face DINOv3 model, load an image, and explore cosine similarity heatmaps for educational and research purposes.
 
-**Note:**  
-The DINOv3 model weights require access approval.  
-You can request access via the [Meta Research page](https://ai.meta.com/resources/models-and-libraries/dinov3-downloads/) or by selecting the desired model on [Hugging Face model collection](https://huggingface.co/collections/facebook/dinov3-68924841bd6b561778e31009).
+## Repository Structure
+
+| Path | Description |
+| --- | --- |
+| `assets/` | Images, figures, or other supporting media used by the project. |
+| `.gitattributes` | Top-level file included in the repository. |
+| `.gitignore` | Top-level file included in the repository. |
+| `app.py` | Top-level file included in the repository. |
+| `camera_similarity.py` | Top-level file included in the repository. |
+| `DINOv3CosSimilarity.py` | Top-level file included in the repository. |
+| `LICENSE` | Repository license information. |
+| `PatchCosSimilarity.ipynb` | Notebook used for experiments, analysis, or interactive demos. |
+| `README.md` | Primary project documentation. |
+| `requirements.txt` | Python dependency specification for local setup. |
+
+## Getting Started
+
+1. Clone the repository.
+
+   ```bash
+   git clone https://github.com/devMuniz02/DINOv3-Interactive-Patch-Cosine-Similarity.git
+   cd DINOv3-Interactive-Patch-Cosine-Similarity
+   ```
+
+2. Prepare the local environment.
+
+Install Python dependencies:
+```bash
+pip install -r requirements.txt
+```
+
+3. Run or inspect the project entry point.
+
+Run the main application:
+```bash
+python app.py
+```
 
 ## Features
 
@@ -34,30 +67,6 @@ Install dependencies with:
 ```bash
 pip install -r requirements.txt
 ```
-
-## Model Selection
-
-You can choose from several DINOv3 models available on Hugging Face (click to view each model card):
-
-LVD-1689M Dataset (Web data)
-- ViT
-    - [facebook/dinov3-vit7b16-pretrain-lvd1689m](https://huggingface.co/facebook/dinov3-vit7b16-pretrain-lvd1689m)
-    - [facebook/dinov3-vits16-pretrain-lvd1689m](https://huggingface.co/facebook/dinov3-vits16-pretrain-lvd1689m)
-    - [facebook/dinov3-vits16plus-pretrain-lvd1689m](https://huggingface.co/facebook/dinov3-vits16plus-pretrain-lvd1689m)
-    - [facebook/dinov3-vitb16-pretrain-lvd1689m](https://huggingface.co/facebook/dinov3-vitb16-pretrain-lvd1689m)
-    - [facebook/dinov3-vitl16-pretrain-lvd1689m](https://huggingface.co/facebook/dinov3-vitl16-pretrain-lvd1689m)
-    - [facebook/dinov3-vith16plus-pretrain-lvd1689m](https://huggingface.co/facebook/dinov3-vith16plus-pretrain-lvd1689m)
-
-- ConvNeXt
-    - [facebook/dinov3-convnext-tiny-pretrain-lvd1689m](https://huggingface.co/facebook/dinov3-convnext-tiny-pretrain-lvd1689m)
-    - [facebook/dinov3-convnext-small-pretrain-lvd1689m](https://huggingface.co/facebook/dinov3-convnext-small-pretrain-lvd1689m)
-    - [facebook/dinov3-convnext-base-pretrain-lvd1689m](https://huggingface.co/facebook/dinov3-convnext-base-pretrain-lvd1689m)
-    - [facebook/dinov3-convnext-large-pretrain-lvd1689m](https://huggingface.co/facebook/dinov3-convnext-large-pretrain-lvd1689m)
-
-SAT-493M Dataset (Satellite data)
-- ViT
-    - [facebook/dinov3-vitl16-pretrain-sat493m](https://huggingface.co/facebook/dinov3-vitl16-pretrain-sat493m)
-    - [facebook/dinov3-vit7b16-pretrain-sat493m](https://huggingface.co/facebook/dinov3-vit7b16-pretrain-sat493m)
 
 ## Usage
 
@@ -189,3 +198,7 @@ This project is licensed under the MIT License. See the `LICENSE` file for detai
 ## Acknowledgments
 
 This project utilizes the DINOv3 model from Hugging Face's Transformers library, along with PyTorch, Matplotlib, and Pillow
+
+## Purpose
+
+This repository provides interactive tools to visualize and explore patch-wise similarity in images using the DINOv3 vision transformer model. It is designed for researchers, students, and practitioners interested in understanding how self-supervised vision transformers perceive and relate different regions of an image.
